@@ -1,7 +1,6 @@
 import React from 'react';
-import profileStyleComponents from './Profile.styled';
-const { ProfileCard, ProfileImage, ProfileOverlay, Title } =
-  profileStyleComponents;
+import * as S from './Profile.styled';
+
 const Profile = ({
   username,
   tag,
@@ -10,29 +9,29 @@ const Profile = ({
   stats: { followers, views, likes },
 }) => {
   return (
-    <ProfileCard>
-      <ProfileOverlay>
-        <ProfileImage src={avatar} alt={username} />
-        <p>{username}</p>
-        <p>{tag}</p>
-        <p>{location}</p>
-      </ProfileOverlay>
+    <S.Card>
+      <S.Overlay>
+        <S.Avatar src={avatar} alt={username} />
+        <S.Name>{username}</S.Name>
+        <S.Tag>@{tag}</S.Tag>
+        <S.Location>{location}</S.Location>
+      </S.Overlay>
 
-      <ul>
-        <li>
-          <Title>Followers</Title>
-          <span>{followers}</span>
-        </li>
-        <li>
-          <span>Views</span>
-          <span>{views}</span>
-        </li>
-        <li>
-          <span>Likes</span>
-          <span>{likes}</span>
-        </li>
-      </ul>
-    </ProfileCard>
+      <S.List>
+        <S.Item>
+          <S.Title>Followers</S.Title>
+          <S.Value>{followers}</S.Value>
+        </S.Item>
+        <S.Item>
+          <S.Title>Views</S.Title>
+          <S.Value>{views}</S.Value>
+        </S.Item>
+        <S.Item>
+          <S.Title>Likes</S.Title>
+          <S.Value>{likes}</S.Value>
+        </S.Item>
+      </S.List>
+    </S.Card>
   );
 };
 
