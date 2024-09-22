@@ -1,11 +1,12 @@
 import React from 'react';
+import * as S from './TransactionHistoryItem.styled';
 
 export const TransactionHistoryItem = ({ type, amount, currency }) => {
   return (
-    <tr>
-      <td>{type}</td>
-      <td>{amount}</td>
-      <td>{currency}</td>
-    </tr>
+    <S.Row>
+      <S.TypeTitle>{type}</S.TypeTitle>
+      <S.Description>{amount}</S.Description>
+      <S.Description>{currency}</S.Description>
+    </S.Row>
   );
 };

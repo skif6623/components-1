@@ -6,9 +6,9 @@ export const TransactionHistory = ({ items }) => {
     <S.Table className="transaction-history">
       <thead>
         <tr>
-          <th>Type</th>
-          <th>Amount</th>
-          <th>Currency</th>
+          <S.Header>Type</S.Header>
+          <S.Header>Amount</S.Header>
+          <S.Header>Currency</S.Header>
         </tr>
       </thead>
 
