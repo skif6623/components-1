@@ -1,19 +1,24 @@
 import React from 'react';
+import * as S from './Statistics.styled';
 
 const Statistics = ({ title, stats }) => {
-  return (
-    <section className="statistics">
-      {title && <h2 className="title">{title}</h2>}
+  const getRandomHexColor = () => {
+    return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+  };
 
-      <ul className="stat-list">
+  return (
+    <S.Card className="statistics">
+      {title && <S.Title className="title">{title}</S.Title>}
+
+      <S.List className="stat-list">
         {stats.map(({ id, label, percentage }) => (
-          <li key={id} className="item">
+          <S.Item key={id} className="item" color={getRandomHexColor()}>
             <span className="label">{label}</span>
-            <span className="percentage">{percentage}</span>
-          </li>
+            <span className="percentage">{percentage}%</span>
+          </S.Item>
         ))}
-      </ul>
-    </section>
+      </S.List>
+    </S.Card>
   );
 };
 

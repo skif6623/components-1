@@ -1,9 +1,9 @@
 import React from 'react';
 import { TransactionHistoryItem } from './TransactionHistoryItem/TransactionHistoryItem';
-
+import * as S from './TransactionHistory.styled';
 export const TransactionHistory = ({ items }) => {
   return (
-    <table className="transaction-history">
+    <S.Table className="transaction-history">
       <thead>
         <tr>
           <th>Type</th>
@@ -22,6 +22,6 @@ export const TransactionHistory = ({ items }) => {
           />
         ))}
       </tbody>
-    </table>
+    </S.Table>
   );
 };
