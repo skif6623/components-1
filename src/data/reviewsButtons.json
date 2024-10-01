@@ -1,5 +1,5 @@
 [
-  { "id": "1", "button": "good" },
-  { "id": "2", "button": "bad" },
-  { "id": "3", "button": "neutral" }
+  { "id": "1", "button": "good", "color": "green" },
+  { "id": "2", "button": "bad", "color": "red" },
+  { "id": "3", "button": "neutral", "color": "orange" }
 ]

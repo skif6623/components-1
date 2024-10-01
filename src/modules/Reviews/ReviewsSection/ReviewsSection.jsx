@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Section = ({ title, children }) => {
+const ReviewsSection = ({ title, children }) => {
   return (
     <>
       <section>
@@ -11,4 +11,4 @@ const Section = ({ title, children }) => {
   );
 };
 
-export default Section;
+export default ReviewsSection;

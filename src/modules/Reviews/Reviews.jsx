@@ -1,10 +1,13 @@
-import React, { Component } from 'react';
-import Button from './Button/Button';
-import FeedbackStatistic from './FeedbackStatistic/FeedbackStatistic';
-import Section from './Section/Section';
-import Notification from './Notification/Notification';
+import { Component } from 'react';
+
+import ReviewsSection from './ReviewsSection/ReviewsSection';
+import ReviewsButtonsList from './ReviewsButtonsList/ReviewsButtonsList';
+import ReviewsNotification from './ReviewsNotification/ReviewsNotification';
+import ReviewsStatistic from './ReviewsStatistic/ReviewsStatistic';
+
+// import * as S from './Reviews.styled';
+
 import buttonsData from '../../data/reviewsButtons.json';
-import * as S from './Reviews.styled';
 
 export class Reviews extends Component {
   state = {
@@ -22,43 +25,46 @@ export class Reviews extends Component {
   };
 
   countTotalFeedback = () => {
-    return this.state.good + this.state.bad + this.state.neutral;
+    const { good, bad, neutral } = this.state;
+    const total = good + bad + neutral;
+
+    return total;
   };
 
   countPositiveFeedbackPercentage = () => {
-    const result = (
-      (this.state.good / this.countTotalFeedback()) *
-      100
-    ).toFixed();
+    const { good } = this.state;
+    const total = this.countTotalFeedback();
+    const result = Math.round((good / total) * 100);
+
     return `${result}%`;
   };
 
   render() {
     const { good, bad, neutral } = this.state;
+
+    const total = this.countTotalFeedback();
+    const isFeedback = total === 0;
     return (
       <>
-        <Section title={'Please leave feedback'}>
-          <S.List>
-            {buttonsData.map(({ id, button }) => (
-              <li key={id}>
-                <Button leaveFeedback={this.leaveFeedback}>{button}</Button>
-              </li>
-            ))}
-          </S.List>
-        </Section>
+        <ReviewsSection title={'Please leave feedback'}>
+          <ReviewsButtonsList
+            data={buttonsData}
+            leaveFeedback={this.leaveFeedback}
+          />
+        </ReviewsSection>
 
-        {this.countTotalFeedback() === 0 ? (
-          <Notification message={'There is no feedback'} />
+        {isFeedback ? (
+          <ReviewsNotification message={'There is no feedback'} />
         ) : (
-          <Section title={'Statistics'}>
-            <FeedbackStatistic
+          <ReviewsSection title={'Statistics'}>
+            <ReviewsStatistic
               good={good}
               bad={bad}
               neutral={neutral}
               total={this.countTotalFeedback}
               positive={this.countPositiveFeedbackPercentage}
             />
-          </Section>
+          </ReviewsSection>
         )}
       </>
     );
