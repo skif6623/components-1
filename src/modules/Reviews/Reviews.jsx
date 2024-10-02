@@ -41,9 +41,9 @@ export class Reviews extends Component {
 
   render() {
     const { good, bad, neutral } = this.state;
-
     const total = this.countTotalFeedback();
     const isFeedback = total === 0;
+
     return (
       <>
         <ReviewsSection title={'Please leave feedback'}>
