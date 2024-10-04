@@ -23,14 +23,13 @@ export class PhonebookForm extends Component {
 
   render() {
     const { contactName, contactNumber } = this.state;
-    const { handleChange, handleSubmit } = this;
 
     return (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={this.handleSubmit}>
         <label>
           Name
           <input
-            onChange={handleChange}
+            onChange={this.handleChange}
             type="text"
             name="contactName"
             value={contactName}
@@ -40,7 +39,7 @@ export class PhonebookForm extends Component {
         <label>
           Number
           <input
-            onChange={handleChange}
+            onChange={this.handleChange}
             type="tel"
             name="contactNumber"
             value={contactNumber}

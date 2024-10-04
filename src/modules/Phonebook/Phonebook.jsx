@@ -4,8 +4,9 @@ import { nanoid } from 'nanoid';
 import PhonebookSection from './PhonebookSection/PhonebookSection';
 import PhonebookForm from './PhonebookForm/PhonebookForm';
 import PhonebookList from './PhonebookList/PhonebookList';
+import PhonebookFilter from './PhonebookFilter/PhonebookFilter';
 
-export class Phonebook extends Component {
+class Phonebook extends Component {
   state = {
     contacts: [
       { id: 'id-1', contactName: 'Rosie Simpson', contactNumber: '459-12-56' },
@@ -16,8 +17,16 @@ export class Phonebook extends Component {
     filter: '',
   };
 
+  handleChange = ({ target }) => {
+    const { name, value } = target;
+    this.setState({ [name]: value });
+  };
+
   onAddContact = ({ contactName, contactNumber }) => {
     this.setState(prevState => {
+      if (this.isDubplicate(contactName)) {
+        return alert(`${contactName} is alredy exist`);
+      }
       const { contacts } = prevState;
       const newContact = {
         id: nanoid(),
@@ -29,10 +38,24 @@ export class Phonebook extends Component {
     });
   };
 
-  handleChange = ({ target }) => {
-    const { name, value } = target;
-    this.setState({ [name]: value });
+  onDeleteContact = id => {
+    this.setState(prevState => {
+      const newContacts = prevState.contacts.filter(i => i.id !== id);
+
+      return { contacts: newContacts };
+    });
   };
+
+  isDubplicate(newContactName) {
+    const { contacts } = this.state;
+    const normalizedNewContactName = newContactName.toLowerCase();
+    const result = contacts.find(
+      ({ contactName }) =>
+        contactName.toLowerCase() === normalizedNewContactName
+    );
+
+    return Boolean(result);
+  }
 
   getFilteredContacts = () => {
     const { filter, contacts } = this.state;
@@ -50,22 +73,21 @@ export class Phonebook extends Component {
   };
   render() {
     const { filter } = this.state;
-    const { onAddContact, handleChange, getFilteredContacts } = this;
+    const { onAddContact, onDeleteContact, getFilteredContacts, handleChange } =
+      this;
     const contacts = getFilteredContacts();
 
     return (
       <>
         <PhonebookSection title="Phonebook">
-          <PhonebookForm onSubmit={onAddContact} />
+          <PhonebookForm onSubmit={onAddContact} handleChange={handleChange} />
         </PhonebookSection>
         <PhonebookSection title="Contacts">
-          <input
-            onChange={handleChange}
-            type="text"
-            name="filter"
-            value={filter}
+          <PhonebookFilter filter={filter} handleChange={handleChange} />
+          <PhonebookList
+            contacts={contacts}
+            onDeleteContact={onDeleteContact}
           />
-          <PhonebookList contacts={contacts} />
         </PhonebookSection>
       </>
     );
